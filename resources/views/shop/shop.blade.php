@@ -30,7 +30,15 @@
                         @endif
                         <h4>{{ $product->name }}</h4>
                         <p class="price">${{ number_format($product->price, 2) }}</p>
-
+                        @if (auth()->check() && auth()->user()->isItCommercial())
+                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Modify</a>
+                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        @endif
                         @if ($product->reviewCount() > 0)
                             <div class="product-rating">
                                 @php $avgRating = round($product->averageRating()) @endphp
@@ -47,10 +55,6 @@
                             <div class="no-rating">No ratings yet</div>
                         @endif
                     </a>
-                    <form action="{{ route('cart.add', $product) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="add-to-cart">Add to Cart</button>
-                    </form>
                 </div>
             @empty
                 <div class="no-products">

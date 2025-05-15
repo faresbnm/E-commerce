@@ -66,18 +66,18 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/users', [AdminController::class, 'userManagement'])->name('admin.users');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
-    Route::get('/products/pending', [ProductController::class, 'pendingApprovals'])->name('admin.products.pending');
-    Route::post('/products/{product}/approve', [ProductController::class, 'approveProduct'])->name('admin.products.approve');
-    Route::delete('/products/{product}/reject', [ProductController::class, 'rejectProduct'])->name('admin.products.reject');
+    Route::get('/products/pending', [AdminController::class, 'pendingProducts'])->name('admin.products.pending');
+    Route::post('/products/{product}/approve', [AdminController::class, 'approveProduct'])->name('admin.products.approve');
+    Route::delete('/products/{product}/reject', [AdminController::class, 'rejectProduct'])->name('admin.products.reject');
 });
 
 // IT/Commercial Routes
 Route::middleware(['auth', 'role:it_commercial'])->group(function () {
     Route::get('/ITC/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/ITC//products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/ITC//products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::put('/ITC//products/{product}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/ITC//products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::post('/ITC/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/ITC/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/ITC/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/ITC/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     
     // Gallery routes for events/trade shows
     Route::get('/gallery/create', [GalleryController::class, 'create'])->name('gallery.create');

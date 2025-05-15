@@ -22,7 +22,7 @@
 
         <div class="admin-links">
             <a href="{{ route('admin.users') }}" class="admin-link">User Management</a>
-            <a href="{{ route('admin.approvals') }}" class="admin-link">Pending Approvals</a>
+            <a href="{{ route('admin.products.pending') }}" class="admin-link">Pending Approvals</a>
         </div>
     </div>
 

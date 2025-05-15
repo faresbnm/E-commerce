@@ -49,10 +49,12 @@
                                         <div class="no-rating">No ratings yet</div>
                                     @endif
                                 </a>
-                                <form action="{{ route('cart.add', $product) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="add-to-cart">Add to Cart</button>
-                                </form>
+                                @if (auth()->check())
+                                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="add-to-cart">Add to Cart</button>
+                                    </form>
+                                @endif
                             </div>
                         @endforeach
                     </div>

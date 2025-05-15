@@ -17,7 +17,7 @@ public function dashboard()
     $stats = [
         'total_sales' => Order::sum('total'),
         'total_orders' => Order::count(),
-        'pending_approvals' => Gallery::where('approved', false)->count()
+        'pending_approvals' => Product::where('status', 'pending')->count()
     ];
     
     return view('admin.dashboard', compact('stats'));

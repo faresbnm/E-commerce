@@ -3,36 +3,29 @@
 @section('title', 'Create Product')
 @section('content')
     <div class="product-form-container">
-        <h1>{{ isset($product) ? 'Edit' : 'Create' }} Product</h1>
+        <h1>Create Product</h1>
 
-        <form action="{{ isset($product) ? route('products.update', $product) : route('products.store') }}" method="POST"
-            enctype="multipart/form-data">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @if (isset($product))
-                @method('PUT')
-            @endif
-
             <div class="form-group">
                 <label for="name">Product Name</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $product->name ?? '') }}" required
-                    class="form-control">
+                <input type="text" id="name" name="name" required class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" required class="form-control" rows="3">{{ old('description', $product->description ?? '') }}</textarea>
+                <textarea id="description" name="description" required class="form-control" rows="3"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" id="price" name="price" step="0.01" min="0"
-                    value="{{ old('price', $product->price ?? '') }}" required class="form-control">
+                <input type="number" id="price" name="price" step="0.01" min="0" required
+                    class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="stock">Stock</label>
-                <input type="number" id="stock" name="stock" min="0"
-                    value="{{ old('stock', $product->stock ?? '') }}" required class="form-control">
+                <input type="number" id="stock" name="stock" min="0" required class="form-control">
             </div>
 
             <!-- Add Category Selection -->
@@ -51,14 +44,10 @@
 
             <div class="form-group">
                 <label for="image">Product Image</label>
-                <input type="file" id="image" name="image" {{ !isset($product) ? 'required' : '' }}
-                    class="form-control">
-                @if (isset($product) && $product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="Current Image" class="current-image">
-                @endif
+                <input type="file" id="image" name="image" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-primary">{{ isset($product) ? 'Update' : 'Create' }} Product</button>
+            <button type="submit" class="btn btn-primary">Create Product</button>
         </form>
     </div>
 
