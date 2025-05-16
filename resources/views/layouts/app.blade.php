@@ -19,6 +19,7 @@
                 <a href="{{ route('home') }}" class="logo">{{ config('app.name', 'Laravel') }}</a>
                 <ul class="nav-links">
                     <li><a href="{{ route('shop.index') }}">Shop</a></li>
+                    <li><a href="{{ route('gallery.index') }}">Gallery</a></li>
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>

@@ -15,17 +15,21 @@
                 <p>{{ $stats['total_orders'] }}</p>
             </div>
             <div class="stat-card">
-                <h3>Pending Approvals</h3>
-                <p>{{ $stats['pending_approvals'] }}</p>
+                <h3>Pending Products</h3>
+                <p>{{ $stats['pending_products'] }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Galleries</h3>
+                <p>{{ $stats['pending_galleries'] }}</p>
             </div>
         </div>
 
         <div class="admin-links">
             <a href="{{ route('admin.users') }}" class="admin-link">User Management</a>
-            <a href="{{ route('admin.products.pending') }}" class="admin-link">Pending Approvals</a>
+            <a href="{{ route('admin.products.pending') }}" class="admin-link">Pending Products</a>
+            <a href="{{ route('admin.gallery.pending') }}" class="admin-link">Pending Galleries</a>
         </div>
     </div>
-
     <style>
         .admin-container {
             max-width: 1200px;

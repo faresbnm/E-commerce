@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleries', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('image');
-            $table->string('type'); // 'event' or 'fashion-show'
-            $table->timestamps();
+        Schema::table('orders', function (Blueprint $table) {
+            // Drop existing foreign key
+            $table->dropForeign(['user_id']);
+    
+            // Re-add with ON DELETE CASCADE
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galleries');
+        //
     }
 };

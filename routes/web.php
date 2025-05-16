@@ -18,6 +18,22 @@ Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/shop', [ProductController::class, 'shop'])->name('shop.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/gallery/{gallery}', [GalleryController::class, 'show'])->name('gallery.show');
+
+//test email
+Route::get('/test-email', function() {
+    try {
+        Mail::raw('This is a test email', function($message) {
+            $message->to('fbnm8829@gmail.com')
+                    ->subject('Test Email');
+        });
+        return 'Email sent - check your inbox and spam folder';
+    } catch (\Exception $e) {
+        return 'Error: '.$e->getMessage();
+    }
+});
+
 
 //profile
 Route::prefix('profile')->group(function () {
@@ -69,6 +85,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/products/pending', [AdminController::class, 'pendingProducts'])->name('admin.products.pending');
     Route::post('/products/{product}/approve', [AdminController::class, 'approveProduct'])->name('admin.products.approve');
     Route::delete('/products/{product}/reject', [AdminController::class, 'rejectProduct'])->name('admin.products.reject');
+
+    //Gallery Approval
+    Route::get('/gallery/pending', [AdminController::class, 'pendingGalleries'])->name('admin.gallery.pending');
+    Route::post('/gallery/{gallery}/approve', [AdminController::class, 'approveGallery'])->name('admin.gallery.approve');
+    Route::post('/gallery/{gallery}/reject', [AdminController::class, 'rejectGallery'])->name('admin.gallery.reject');
 });
 
 // IT/Commercial Routes
@@ -80,6 +101,8 @@ Route::middleware(['auth', 'role:it_commercial'])->group(function () {
     Route::delete('/ITC/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     
     // Gallery routes for events/trade shows
-    Route::get('/gallery/create', [GalleryController::class, 'create'])->name('gallery.create');
-    Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+    Route::get('/ITC/gallery/create', [GalleryController::class, 'create'])->name('gallery.create');
+    Route::post('/ITC/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+    Route::delete('/ITC/gallery/remove/{gallery}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+
 });
